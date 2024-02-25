@@ -12,22 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WelcomeToTheClub.Controllers;
-using WelcomeToTheClub.Views.Pages;
-namespace WelcomeToTheClub
+
+namespace WelcomeToTheClub.Views.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для ErrorPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ErrorPage : Page
     {
-        public static Frame MainWin;
-        public MainWindow()
+        public ErrorPage()
         {
             InitializeComponent();
-            DataBaseController.Connect();
-            MainWin = MainFrame;
-            MainWin.Navigate(new AuthorizationPage());
         }
     }
 }
