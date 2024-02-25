@@ -13,21 +13,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WelcomeToTheClub.Controllers;
-using WelcomeToTheClub.Views.Pages;
-namespace WelcomeToTheClub
+
+namespace WelcomeToTheClub.Views.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для AuthorizationPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AuthorizationPage : Page
     {
-        public static Frame MainWin;
-        public MainWindow()
+        public AuthorizationPage()
         {
             InitializeComponent();
-            DataBaseController.Connect();
-            MainWin = MainFrame;
-            MainWin.Navigate(new AuthorizationPage());
+        }
+
+        private void auth_Click(object sender, RoutedEventArgs e)
+        {
+            var page = UserController.Authorization(LoginBox.Text, PasswordBox.Text);
+            MainWindow.MainWin.Navigate(page);
         }
     }
 }
