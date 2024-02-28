@@ -14,15 +14,21 @@ namespace WelcomeToTheClub.Controllers
     {
         public static Page Authorization(string login, string password)
         {
-            List<UserModel> users = DataBaseController.SelectUsers();
-            foreach(var i in users)
+            using (DataBaseController db = new DataBaseController())
             {
-                if (i.Login.Equals(login) && i.Password.Equals(password))
+                var users = db.SelectUsers();
+                var roles = db.Roles();
+                foreach(var i in users)
                 {
-                    return new MainContent();
+                    if (i.login.Equals(login) && i.pass.Equals(password))
+                    {
+                        var currentRole = roles.First(r => r.role_id == i.role_id).role_name;
+                        return new MainContent();
+                    }
                 }
+                return new ErrorPage();
             }
-            return new ErrorPage();
         }
+
     }
 }

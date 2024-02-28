@@ -25,7 +25,6 @@ namespace WelcomeToTheClub
         public MainWindow()
         {
             InitializeComponent();
-            DataBaseController.Connect();
             MainWin = MainFrame;
             MainWin.Navigate(new AuthorizationPage());
         }

@@ -4,37 +4,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using MySql.Data.MySqlClient;
-using MySql.Data;
 using System.Windows;
 using WelcomeToTheClub.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace WelcomeToTheClub.Controllers
 {
     // В этом классе находится логика работы с базой данных
-    public class DataBaseController
+    public class DataBaseController: DbContext
     {
-        private static MySqlConnection Connection;
-        public static void Connect()
-        {
-            var connectionString = "server=localhost;database=test;user id=root;password=1234;";
+        private DbSet<UserModel> users { get; set; } = null!;
+        private DbSet<RoleModel> roles { get; set; } = null!;
 
-            Connection = new MySqlConnection(connectionString);
-            Connection.Open();
+        public DataBaseController()
+        {
+            Database.EnsureCreated();
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserModel>().HasKey(u => u.user_id);
+            modelBuilder.Entity<RoleModel>().HasKey(u => u.role_id);
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=project;Username=postgres;Password=1234");
         }
 
-        public static List<UserModel> SelectUsers()
+        public List<RoleModel> Roles()
         {
-            List<UserModel> users = new List<UserModel>();
-            MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "SELECT * FROM users;";
-            var result = command.ExecuteReader();
+            return roles.ToList();
+        }
 
-            while (result.Read())
-            {
-                users.Add(new UserModel() { Login = result.GetString(0), ID = result.GetInt32(1), Company = result.GetString(2), Password = result.GetString(3), Role = result.GetInt32(4) });
-            }
-            return users;
+        public List<UserModel> SelectUsers()
+        {
+            return users.ToList();
         }
     }
 }
