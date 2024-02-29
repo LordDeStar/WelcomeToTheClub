@@ -13,36 +13,39 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WelcomeToTheClub.Controllers;
-
 namespace WelcomeToTheClub.Views.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для AuthorizationPage.xaml
-    /// </summary>
-    public partial class AuthorizationPage : Page
+    public partial class RegistartionCompanyPage : Page
     {
-
-        private static AuthorizationPage _instance = null!;
-        public static AuthorizationPage Instance
+        private static RegistartionCompanyPage _instance = null!;
+        public static RegistartionCompanyPage Instance
         {
             get
             {
                 if (_instance is null)
                 {
-                    _instance = new AuthorizationPage();
+                    _instance = new RegistartionCompanyPage();
                 }
                 return _instance;
             }
-        } 
-        private AuthorizationPage()
+        }
+
+        private RegistartionCompanyPage()
         {
             InitializeComponent();
         }
 
-        private void auth_Click(object sender, RoutedEventArgs e)
+        private void submit_Click(object sender, RoutedEventArgs e)
         {
-            var page = UserController.Authorization(LoginBox.Text, PasswordBox.Text);
-            MainWindow.MainWin.Navigate(page);
+            var name = company.Text;
+            if (ComapnyController.RegistrCompany(name))
+            {
+                MessageBox.Show("Successfull");
+            }
+            else
+            {
+                MessageBox.Show("Error");
+            }
         }
     }
 }

@@ -21,12 +21,29 @@ namespace WelcomeToTheClub
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static Frame MainWin;
+        public static Frame MainWin = null!;
         public MainWindow()
         {
             InitializeComponent();
             MainWin = MainFrame;
-            MainWin.Navigate(new AuthorizationPage());
+            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+
+            MainWin.Navigate(AuthorizationPage.Instance);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainWin.Navigate(AuthorizationPage.Instance);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MainWin.Navigate(RegistrationPage.Instance);
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            MainWin.Navigate(RegistartionCompanyPage.Instance);
         }
     }
 }

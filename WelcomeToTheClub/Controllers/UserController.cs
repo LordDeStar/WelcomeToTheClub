@@ -23,11 +23,40 @@ namespace WelcomeToTheClub.Controllers
                     if (i.login.Equals(login) && i.pass.Equals(password))
                     {
                         var currentRole = roles.First(r => r.role_id == i.role_id).role_name;
-                        return new MainContent();
+                        if (currentRole == "manager")
+                        {
+                            return new MainContent();
+                        }
+                        else
+                        {
+                            return new ErrorPage();
+                        }
                     }
                 }
                 return new ErrorPage();
             }
+        }
+
+        public static bool RegestrationUser(string login, string pass, int company, int role)
+        {
+            using (DataBaseController db = new DataBaseController())
+            {
+                var users = db.SelectUsers();
+                int id = users.Last().user_id + 1;
+                var user = new UserModel { login = login, user_id = id, pass = pass, company_id = company, role_id = role };
+
+                if (users.Any(u => u.login == user.login))
+                {
+                    return false;
+                }
+                else
+                {
+                    db.RegistrUser(user);
+                    return true;
+                }
+                
+            }
+           
         }
 
     }
