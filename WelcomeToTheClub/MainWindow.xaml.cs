@@ -21,7 +21,7 @@ namespace WelcomeToTheClub
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static Button _registrRoleBut = null!;
+        
         private static Button _registrUserBut = null!;
         private static Button _registrComapnyBut = null!;
         private static Frame _mainWin = null!;
@@ -40,13 +40,6 @@ namespace WelcomeToTheClub
                 return _registrUserBut;
             }
         }
-        public static Button RegistrRoleBut
-        {
-            get
-            {
-                return _registrRoleBut;
-            }
-        }
 
         public static Frame MainWin
         {
@@ -59,12 +52,17 @@ namespace WelcomeToTheClub
         public MainWindow()
         {
             InitializeComponent();
-
+            _registrComapnyBut = regCompanyBut;
+            _registrUserBut = regUserBut;
+            _registrComapnyBut.Visibility = Visibility.Hidden;
+            _registrUserBut.Visibility = Visibility.Hidden;
             _mainWin = MainFrame;
             MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
 
             MainWin.Navigate(AuthorizationPage.Instance);
         }
+
+        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

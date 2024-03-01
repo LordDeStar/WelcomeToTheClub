@@ -34,10 +34,10 @@ namespace WelcomeToTheClub.Views.Pages
                 return _instance;
             }
         }
+
         private RegistrationPage()
         {
             InitializeComponent();
-                
         }
 
         private void Init()
@@ -45,8 +45,16 @@ namespace WelcomeToTheClub.Views.Pages
             using (DataBaseController db = new DataBaseController())
             {
                 company.ItemsSource = db.companies.Select(u => u.company_name).ToList();
-                role.ItemsSource = db.roles.Select(u => u.role_name).ToList();
+                var source = db.roles.Select(u => u.role_name).ToList();
+                source.Add("Add new role");
+                role.ItemsSource = source;
+                
             }
+        }
+
+        private void _registrRoleBut_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         private void submit_Click(object sender, RoutedEventArgs e)
@@ -56,9 +64,16 @@ namespace WelcomeToTheClub.Views.Pages
             var selectedRole = role.SelectedIndex + 1;
             var selectedCompany = company.SelectedIndex + 1;
 
+            if (selectedRole.Equals(role.Items.Count))
+            {
+                MainWindow.MainWin.Navigate(RegistartionRolePage.Instance);
+                return;
+            }
+
             if (UserController.RegestrationUser(log, password, selectedCompany, selectedRole))
             {
                 MessageBox.Show("Successfull");
+                
             }
             else
             {
