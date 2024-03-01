@@ -12,6 +12,8 @@ namespace WelcomeToTheClub.Controllers
     // В этом классе находится вся логика работы с пользователями.
     public class UserController
     {
+        public static RoleModel CurrentRole = null!;
+
         public static Page Authorization(string login, string password)
         {
             using (DataBaseController db = new DataBaseController())
@@ -22,10 +24,10 @@ namespace WelcomeToTheClub.Controllers
                 {
                     if (i.login.Equals(login) && i.pass.Equals(password))
                     {
-                        var currentRole = roles.First(r => r.role_id.Equals(i.role_id)).role_name;
-                        if (currentRole == "manager")
+                        CurrentRole = roles.First(r => r.role_id.Equals(i.role_id));
+                        if (CurrentRole.role_name.Equals("manager"))
                         {
-                            return new MainContent();
+                            return ManagerController.MainPage();
                         }
                         else
                         {

@@ -21,11 +21,46 @@ namespace WelcomeToTheClub
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static Frame MainWin = null!;
+        public static Button _registrRoleBut = null!;
+        private static Button _registrUserBut = null!;
+        private static Button _registrComapnyBut = null!;
+        private static Frame _mainWin = null!;
+
+        public static Button RegistrComapnyBut
+        {
+            get
+            {
+                return _registrComapnyBut;
+            }
+        }
+        public static Button RegistrUserBut
+        {
+            get
+            {
+                return _registrUserBut;
+            }
+        }
+        public static Button RegistrRoleBut
+        {
+            get
+            {
+                return _registrRoleBut;
+            }
+        }
+
+        public static Frame MainWin
+        {
+            get
+            {
+                return _mainWin;
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
-            MainWin = MainFrame;
+
+            _mainWin = MainFrame;
             MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
 
             MainWin.Navigate(AuthorizationPage.Instance);

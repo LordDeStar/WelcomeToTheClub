@@ -9,10 +9,10 @@ namespace WelcomeToTheClub.Models
 {
     public class UserModel
     {
-        public string login { get; set; }
+        public string login { get; set; } = null!;
         public int user_id { get; set; }
         public int company_id { get; set; }
-        public string pass { get; set; }
+        public string pass { get; set; } = null!;
         public int role_id { get; set; }
         
     }

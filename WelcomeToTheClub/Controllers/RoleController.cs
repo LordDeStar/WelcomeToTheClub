@@ -7,20 +7,22 @@ using WelcomeToTheClub.Models;
 
 namespace WelcomeToTheClub.Controllers
 {
-    class ComapnyController
+    class RoleController
     {
-        public static bool RegistrCompany(string name)
+        public static bool RegistrRole(string name)
         {
             using (DataBaseController db = new DataBaseController())
             {
-                var companies = db.companies.ToList();
-                if (name.Equals(string.Empty) || companies.Any(c => c.company_name.Equals(name)))
+                var roles = db.roles.ToList();
+
+                if (name.Equals(string.Empty) || roles.Any(r => r.role_name.Equals(name)))
                 {
                     return false;
                 }
-                int id = companies.Last().company_id + 1;
-                var company = new CompanyModel { company_id = id, company_name = name };
-                db.companies.Add(company);
+                int id = roles.Last().role_id + 1;
+                var role = new RoleModel { role_id = id, role_name = name };
+
+                db.roles.Add(role);
                 db.SaveChanges();
                 return true;
             }

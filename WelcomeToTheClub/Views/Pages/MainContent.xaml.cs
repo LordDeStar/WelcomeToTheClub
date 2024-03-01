@@ -20,7 +20,7 @@ namespace WelcomeToTheClub.Views.Pages
     /// </summary>
     public partial class MainContent : Page
     {
-        private static MainContent _instance;
+        private static MainContent _instance = null!;
         public static MainContent Instance
         {
             get
@@ -33,7 +33,7 @@ namespace WelcomeToTheClub.Views.Pages
             }
         }
 
-        public MainContent()
+        private MainContent()
         {
             InitializeComponent();
         }

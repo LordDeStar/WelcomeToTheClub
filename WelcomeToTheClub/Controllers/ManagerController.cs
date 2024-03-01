@@ -10,7 +10,7 @@ namespace WelcomeToTheClub.Controllers
 {
     public class ManagerController
     {
-        public static Page Main()
+        public static Page MainPage()
         {
             return MainContent.Instance;
         }
