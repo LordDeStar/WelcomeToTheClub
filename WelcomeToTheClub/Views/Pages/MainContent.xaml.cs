@@ -20,6 +20,19 @@ namespace WelcomeToTheClub.Views.Pages
     /// </summary>
     public partial class MainContent : Page
     {
+        private static MainContent _instance;
+        public static MainContent Instance
+        {
+            get
+            {
+                if (_instance is null)
+                {
+                    _instance = new MainContent();
+                }
+                return _instance;
+            }
+        }
+
         public MainContent()
         {
             InitializeComponent();

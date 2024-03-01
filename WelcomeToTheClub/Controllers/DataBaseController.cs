@@ -13,9 +13,9 @@ namespace WelcomeToTheClub.Controllers
     // В этом классе находится логика работы с базой данных
     public class DataBaseController: DbContext
     {
-        private DbSet<UserModel> users { get; set; } = null!;
-        private DbSet<RoleModel> roles { get; set; } = null!;
-        private DbSet<CompanyModel> companies { get; set; } = null!;
+        public DbSet<UserModel> users { get; set; } = null!;
+        public DbSet<RoleModel> roles { get; set; } = null!;
+        public DbSet<CompanyModel> companies { get; set; } = null!;
 
         public DataBaseController()
         {
@@ -32,31 +32,6 @@ namespace WelcomeToTheClub.Controllers
             optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=project;Username=postgres;Password=1234");
         }
 
-        public List<CompanyModel> SelectCompanies()
-        {
-            return companies.ToList();
-        }
-
-        public List<RoleModel> Roles()
-        {
-            return roles.ToList();
-        }
-
-        public List<UserModel> SelectUsers()
-        {
-            return users.ToList();
-        }
-
-        public void RegistrUser(UserModel user)
-        {
-            users.Add(user);
-            SaveChanges();
-        }
-
-        public void RegistrCompany(CompanyModel company)
-        {
-            companies.Add(company);
-            SaveChanges();
-        }
+        
     }
 }

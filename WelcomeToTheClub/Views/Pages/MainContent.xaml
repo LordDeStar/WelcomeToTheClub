@@ -9,6 +9,6 @@
       Title="MainContent">
 
     <Grid>
-        <Button />
+        <Label Content="Welcome, manager!" Foreground="Green" FontSize="56"/>
     </Grid>
 </Page>

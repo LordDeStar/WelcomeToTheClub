@@ -44,8 +44,8 @@ namespace WelcomeToTheClub.Views.Pages
         {
             using (DataBaseController db = new DataBaseController())
             {
-                company.ItemsSource = db.SelectCompanies().Select(u => u.company_name);
-                role.ItemsSource = db.Roles().Select(u => u.role_name);
+                company.ItemsSource = db.companies.Select(u => u.company_name).ToList();
+                role.ItemsSource = db.roles.Select(u => u.role_name).ToList();
             }
         }
 

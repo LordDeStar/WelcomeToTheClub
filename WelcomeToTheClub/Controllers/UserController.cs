@@ -16,13 +16,13 @@ namespace WelcomeToTheClub.Controllers
         {
             using (DataBaseController db = new DataBaseController())
             {
-                var users = db.SelectUsers();
-                var roles = db.Roles();
+                var users = db.users.ToList();
+                var roles = db.roles.ToList();
                 foreach(var i in users)
                 {
                     if (i.login.Equals(login) && i.pass.Equals(password))
                     {
-                        var currentRole = roles.First(r => r.role_id == i.role_id).role_name;
+                        var currentRole = roles.First(r => r.role_id.Equals(i.role_id)).role_name;
                         if (currentRole == "manager")
                         {
                             return new MainContent();
@@ -41,7 +41,7 @@ namespace WelcomeToTheClub.Controllers
         {
             using (DataBaseController db = new DataBaseController())
             {
-                var users = db.SelectUsers();
+                var users = db.users.ToList();
                 int id = users.Last().user_id + 1;
                 var user = new UserModel { login = login, user_id = id, pass = pass, company_id = company, role_id = role };
 
@@ -51,7 +51,8 @@ namespace WelcomeToTheClub.Controllers
                 }
                 else
                 {
-                    db.RegistrUser(user);
+                    db.users.Add(user);
+                    db.SaveChanges();
                     return true;
                 }
                 

@@ -13,16 +13,17 @@ namespace WelcomeToTheClub.Controllers
         {
             using (DataBaseController db = new DataBaseController())
             {
-                var companies = db.SelectCompanies();
-                if (companies.Any(c => c.company_name == name))
+                var companies = db.companies.ToList();
+                if (name.Equals(string.Empty) || companies.Any(c => c.company_name.Equals(name)))
                 {
                     return false;
                 }
                 else
                 {
-                    int id = db.SelectCompanies().Last().company_id + 1;
+                    int id = companies.Last().company_id + 1;
                     var company = new CompanyModel { company_id = id, company_name = name };
-                    db.RegistrCompany(company);
+                    db.companies.Add(company);
+                    db.SaveChanges();
                     return true;
                 }
             }
